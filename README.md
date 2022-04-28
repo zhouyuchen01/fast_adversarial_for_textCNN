@@ -1,5 +1,5 @@
 # fast_adversarial_for_TextCNN
-# 复现流程
+# 复现流程&分析报告
 # 1. 代码部分主要修改
 ## 1.1 模型部分Model/TextCNN.py/forward
 ```python
@@ -112,15 +112,13 @@ def plot_confusion_matrix(cm, classes, savename, title='Confusion Matrix'):
     plt.savefig(savename, format='png')
     plt.show()
 ```
-
-
 # 2. 复现过程
 ```python
 python run.py --mode [FGSM/PGD/FREE/Baseline] --seed [int]
 ```
 # 3. 性能分析报告
-
 ## 3.1 性能对比
+
 |         |Precision| Recall| F1-score| Train_time| Train_time per Iter|
 |   ----  |  ----   | ----  |   ----  |     ----  |     ----------     |
 |BaseLine |   0.9119| 0.9118|   0.9117|    0:12:08|   0.1193s(6100 It) |
@@ -134,8 +132,9 @@ python run.py --mode [FGSM/PGD/FREE/Baseline] --seed [int]
 * 单次实验（seed==1），Precision/Recall/F1-score：FGSM>BaseLine>PGD>Free
 * 单次实验（seed==1），Train_time per Iter(训练效率)：BaseLine>FGSM>Free>PGD
 * 四类算法如何选择
-    + 考虑鲁棒性，优先选择FGSM（若有对抗训练需求，无论是鲁棒性还是训练效率，FGSM都是优先项）
-    + 考虑训练效率，则优先BaseLine
+    + 若有对抗训练需求，无论是鲁棒性还是训练效率，FGSM都是优先项
+    + 考虑鲁棒性，优先选择FGSM
+    + 考虑训练效率，优先选择BaseLine(原始TextCNN)
 
 ### 局限性
 * 限于时间原因，沿用了“超过1000batch效果无法提升，则提前结束训练”的设置，因此PGD、Free、FGSM方法相对BaseLine并无明显提升
