@@ -126,7 +126,7 @@ python run.py --mode [FGSM/PGD/FREE/Baseline] --seed [int]
 |Free     |   0.8852| 0.8845|   0.8844|    0:48:08|   0.4443s(6100 It) |
 |FGSM     |   0.9166| 0.9165|   0.9163|    0:37:46|   0.2490s(9100 It) |
 ## 3.2 Confusion Matrix of FGSM
-![image](https://github.com/zhouyuchen01/fast_adversarial_for_textCNN/blob/main/Chinese-Text-Classification-Pytorch-master/confusion_matrix_FGSM.png) 
+![Confusion Matrix of FGSM](https://github.com/zhouyuchen01/fast_adversarial_for_textCNN/blob/main/confusion_matrix_FGSM.png) 
 ## 3.3 实验结论
 ### 发现与结论
 * 单次实验（seed==1），Precision/Recall/F1-score：FGSM>BaseLine>PGD>Free
