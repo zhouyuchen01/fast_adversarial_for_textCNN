@@ -62,7 +62,6 @@ for _ in range(FREE_OPT_NUM):
     loss = F.cross_entropy(outputs, labels)
     loss.backward()
     optimizer.step()
-
     grad = delta.grad.detach()
     delta.data = delta + epsilon * torch.sign(grad)
     delta.data[:trains[0].size(0)] = torch.clamp(delta[:trains[0].size(0)], -epsilon, epsilon)
@@ -71,7 +70,6 @@ for _ in range(FREE_OPT_NUM):
 ## 1.3 可视化/adv_train_eval.py/evaluate&plot_confusion_matrix
 ```python
 if test:
-    
     report = metrics.classification_report(labels_all, predict_all, target_names=config.class_list, digits=4)
     confusion = metrics.confusion_matrix(labels_all, predict_all)
     #plot confusion matrix
@@ -118,7 +116,6 @@ python run.py --mode [FGSM/PGD/FREE/Baseline] --seed [int]
 ```
 # 3. 性能分析报告
 ## 3.1 性能对比
-
 |         |Precision| Recall| F1-score| Train_time| Train_time per Iter|
 |   ----  |  ----   | ----  |   ----  |     ----  |     ----------     |
 |BaseLine |   0.9119| 0.9118|   0.9117|    0:12:08|   0.1193s(6100 It) |
@@ -132,9 +129,9 @@ python run.py --mode [FGSM/PGD/FREE/Baseline] --seed [int]
 * 单次实验（seed==1），Precision/Recall/F1-score：FGSM>BaseLine>PGD>Free
 * 单次实验（seed==1），Train_time per Iter(训练效率)：BaseLine>FGSM>Free>PGD
 * 四类算法如何选择
-    + 若有对抗训练需求，无论是鲁棒性还是训练效率，FGSM都是优先项
-    + 考虑鲁棒性，优先选择FGSM
-    + 考虑训练效率，优先选择BaseLine(原始TextCNN)
+    + 若有对抗训练需求，无论是鲁棒性还是训练效率，FGSM都是优先选择
+    + 优先考虑鲁棒性，选择FGSM
+    + 优先考虑训练效率，选择BaseLine(原始TextCNN)
 
 ### 局限性
 * 限于时间原因，沿用了“超过1000batch效果无法提升，则提前结束训练”的设置，因此PGD、Free、FGSM方法相对BaseLine并无明显提升
