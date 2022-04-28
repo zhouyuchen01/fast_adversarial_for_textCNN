@@ -1,0 +1,1 @@
+# fast_adversarial_for_textCNN
